@@ -17,9 +17,9 @@ namespace MessageQueues
         public void Start()
         {
             var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (model, ea) =>
+            consumer.Received += (model, eventArguments) =>
             {
-                var body = ea.Body.ToArray();
+                var body = eventArguments.Body.ToArray();
                 var fileName = $"{Guid.NewGuid()}.pdf"; // Generate unique file name for now
                 var filePath = Path.Combine(_outputFolder, fileName);
                 File.WriteAllBytes(filePath, body);
